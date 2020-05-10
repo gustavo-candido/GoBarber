@@ -27,9 +27,9 @@ const SignUp: React.FC = () => {
           <Input name="e-mail" icon={FiMail} placeholder="E-mail" />
 
           <Input
-            name="passworld"
+            name="password"
             icon={FiLock}
-            type="passworld"
+            type="password"
             placeholder="Senha"
           />
 
