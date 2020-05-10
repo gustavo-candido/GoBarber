@@ -15,7 +15,7 @@ import { Container, Content, Background } from './styles';
 const SignUp: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
 
-  const handleSUbmit = useCallback(async (data: object) => {
+  const handleSubmit = useCallback(async (data: object) => {
     try {
       formRef.current?.setErrors({});
       const shema = Yup.object().shape({
@@ -44,7 +44,7 @@ const SignUp: React.FC = () => {
 
       <Content>
         <img src={logoImg} alt="GoBarber" />
-        <Form ref={formRef} onSubmit={handleSUbmit}>
+        <Form ref={formRef} onSubmit={handleSubmit}>
           <h1>Faça seu cadastro</h1>
 
           <Input name="name" icon={FiUser} placeholder="Nome" />
