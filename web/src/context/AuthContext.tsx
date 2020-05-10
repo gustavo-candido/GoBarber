@@ -1,4 +1,4 @@
-import React, { createContext, useCallback, useState } from 'react';
+import React, { createContext, useCallback, useState, useContext } from 'react';
 import api from '../services/api';
 
 interface SignInCredentials {
@@ -16,11 +16,19 @@ interface AuthState {
   user: object;
 }
 
-export const AuthContext = createContext<AuthContextData>(
-  {} as AuthContextData
-);
+const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
-export const AuthProvider: React.FC = ({ children }) => {
+function useAuth(): AuthContextData {
+  const context = useContext(AuthContext);
+
+  if (!context) {
+    throw new Error('useAuth must be used within a AuthProvider');
+  }
+
+  return context;
+}
+
+const AuthProvider: React.FC = ({ children }) => {
   const [data, setData] = useState<AuthState>(() => {
     const token = localStorage.getItem('Gobarber:token');
     const user = localStorage.getItem('Gobarber:user');
@@ -44,7 +52,6 @@ export const AuthProvider: React.FC = ({ children }) => {
 
     localStorage.setItem('Gobarber:token', token);
     localStorage.setItem('Gobarber:user', JSON.stringify(user));
-    console.log(response.data);
 
     setData({ token, user });
   }, []);
@@ -55,3 +62,5 @@ export const AuthProvider: React.FC = ({ children }) => {
     </AuthContext.Provider>
   );
 };
+
+export { AuthProvider, useAuth };
