@@ -4,9 +4,13 @@ import GlobalStyle from './styles/global';
 import SignIn from './Pages/SignIn';
 import SignUp from './Pages/SignUp';
 
+import AuthContext from './context/AuthContext';
+
 const App: FC = () => (
   <>
-    <SignIn />
+    <AuthContext.Provider value={{ name: 'Candido' }}>
+      <SignIn />
+    </AuthContext.Provider>
     <GlobalStyle />
   </>
 );
