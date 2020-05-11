@@ -40,7 +40,7 @@ const SignIn: React.FC = () => {
           abortEarly: false,
         });
 
-        await  signIn({
+        await signIn({
           email: data.email,
           password: data.password,
         });
@@ -51,7 +51,12 @@ const SignIn: React.FC = () => {
           formRef.current?.setErrors(errors);
         }
 
-        addToast();
+        addToast({
+          type: 'error',
+          title: 'Erro na autenticação',
+          description:
+            'Ocorreu um erro ao fazer login, cheque suas credenciais.',
+        });
       }
     },
     [addToast, signIn]
