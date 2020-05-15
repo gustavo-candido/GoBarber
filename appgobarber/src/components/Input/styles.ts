@@ -3,6 +3,7 @@ import Feathercon from 'react-native-vector-icons/Feather';
 
 interface InputProps {
   isFocused: boolean;
+  isErrored: boolean;
 }
 
 export const Container = styled.View<InputProps>`
@@ -16,6 +17,12 @@ export const Container = styled.View<InputProps>`
   border-color: #232129;
   flex-direction: row;
   align-items: center;
+
+  ${(props) =>
+    props.isErrored &&
+    css`
+      border-color: #c53030;
+    `}
 
   ${(props) =>
     props.isFocused &&
