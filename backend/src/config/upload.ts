@@ -1,10 +1,13 @@
-import patch from 'path';
+import path from 'path';
 import crypto from 'crypto';
 import multer from 'multer';
 
-const tmpFolder = patch.resolve(__dirname, '..', '..', 'tmp');
+const tmpFolder = path.resolve(__dirname, '..', '..', 'tmp');
+
 export default {
-  directory: tmpFolder,
+  tmpFolder,
+  uploadsFolder: path.resolve(tmpFolder, 'uploads'),
+
   storage: multer.diskStorage({
     destination: tmpFolder,
     filename(request, file, callback) {
