@@ -22,8 +22,6 @@ container.registerSingleton<IUsersRepository>(
   UsersRepository,
 );
 
-// mail
-
 container.registerSingleton<IUserTokensRepository>(
   'UserTokensRepository',
   UserTokensRepository,
