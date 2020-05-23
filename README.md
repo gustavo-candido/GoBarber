@@ -6,11 +6,8 @@
 This repository its part of my web studies with Rocketseat bootcamp (GoStack).
 
 [![Author](https://img.shields.io/badge/Author-Candido-%23FF9000)](https://github.com/gustavo-candido)
-
 [![Languages](https://img.shields.io/github/languages/count/gustavo-candido/GoBarber?color=%23ff9000)](#)
-
 [![Top Language](https://img.shields.io/github/languages/top/gustavo-candido/GoBarber?color=%20%23FF9000)](#)
-
 [![Contributors](https://img.shields.io/github/contributors/gustavo-candido/GoBarber?color=%23ff9000)](#)
 
 ---
