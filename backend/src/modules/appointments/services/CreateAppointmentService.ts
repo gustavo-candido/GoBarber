@@ -50,7 +50,6 @@ class CreateAppointmentService {
     if (findAppointmentInSameTime) {
       throw new AppError('This appoinment its already booked');
     }
-
     const appointment = await this.appointmentsRepository.create({
       user_id,
       provider_id,
@@ -58,9 +57,10 @@ class CreateAppointmentService {
     });
 
     const dateFormated = format(appointmentDate, "dd/MM/yyyy 'às' HH:mm'h'");
+
     await this.notificationsRepository.create({
       recipient_id: provider_id,
-      content: `Novo agendamento para dis ${dateFormated}`,
+      content: `Novo agendamento para dia ${dateFormated}`,
     });
 
     return appointment;
