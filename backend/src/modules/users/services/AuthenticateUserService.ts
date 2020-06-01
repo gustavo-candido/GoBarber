@@ -46,6 +46,12 @@ class AuthenticateUserService {
 
     const { secret, expiresIn } = authConfig.jwt;
 
+    console.log('🚩️🚩️🚩️🚩️🚩️🚩️🚩️');
+    console.log(secret);
+
+    console.log('🚩️🚩️🚩️🚩️🚩️🚩️🚩️');
+    console.log(process.env.APP_SECRET);
+
     const token = sign(
       {}, // Infos públicas que serão utilização como permissões e tals
       secret,

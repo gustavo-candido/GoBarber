@@ -39,6 +39,7 @@ class SendForgotEmailPasswordService {
       'views',
       'forgot_password.hbs',
     );
+
     await this.mailProvider.sendMail({
       to: {
         name: user.name,

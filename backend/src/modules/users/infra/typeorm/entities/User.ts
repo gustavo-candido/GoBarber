@@ -39,6 +39,7 @@ class User {
     if (!this.avatar) {
       return null;
     }
+
     switch (uploadConfig.driver) {
       case 'disk':
         return `${process.env.APP_API_URL}/files/${this.avatar}`;
