@@ -29,6 +29,7 @@ describe('CreateUser', () => {
       password: '123456',
     });
 
+
     expect(user).toHaveProperty('id');
   });
 
