@@ -26,7 +26,7 @@ class Appointment {
   user_id: string;
 
   @ManyToOne(() => User)
-  @JoinColumn({ name: 'provider_id' })
+  @JoinColumn({ name: 'user_id' })
   user: User;
 
   @Column('timestamp with time zone')
