@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect, useMemo } from 'react';
-import { isToday, format } from 'date-fns';
+import { isToday, format, parseISO } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
 import DayPicker, { DayModifiers } from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
@@ -30,6 +30,7 @@ interface MonthAvailabilityItem {
 interface Appointment {
   id: string;
   date: string;
+  hourFormatted: string;
   user: {
     name: string;
     avatar_url: string;
@@ -58,6 +59,46 @@ const Dashboard: React.FC = () => {
     setCurrentMonth(month);
   }, []);
 
+  useEffect(() => {
+    api
+      .get(`/providers/${user.id}/month-availability`, {
+        params: {
+          year: currentMonth.getFullYear(),
+          month: currentMonth.getMonth() + 1,
+        },
+      })
+      .then((response) => {
+        setMonthAvailability(response.data);
+      });
+  }, [currentMonth, user.id]);
+
+  useEffect(() => {
+    api
+      .get<Appointment[]>('/appointments/me', {
+        params: {
+          year: selectedDate.getFullYear(),
+          month: selectedDate.getMonth() + 1,
+          day: selectedDate.getDate(),
+        },
+      })
+      .then((response) => {
+        const appointmentsFormatted = response.data.map((appointment) => {
+          return {
+            ...appointment,
+            hourFormatted: format(parseISO(appointment.date), 'HH:mm'),
+          };
+        });
+
+        appointmentsFormatted.sort((a: Appointment, b: Appointment) => {
+          if (a.hourFormatted < b.hourFormatted) return -1;
+          if (a.hourFormatted === b.hourFormatted) return 0;
+          return 1;
+        });
+
+        setAppointments(appointmentsFormatted);
+      });
+  }, [selectedDate]);
+
   const disabledDays = useMemo(() => {
     const dates = monthAvailability
       .filter((monthDay) => monthDay.avaliable === false)
@@ -83,38 +124,17 @@ const Dashboard: React.FC = () => {
     });
   }, [selectedDate]);
 
-  useEffect(() => {
-    api
-      .get(`/providers/${user.id}/month-availability`, {
-        params: {
-          year: currentMonth.getFullYear(),
-          month: currentMonth.getMonth() + 1,
-        },
-      })
-      .then((response) => {
-        setMonthAvailability(response.data);
-      });
-  }, [currentMonth, user.id]);
+  const morningAppointments = useMemo(() => {
+    return appointments.filter(
+      (appointment) => parseISO(appointment.date).getHours() < 12
+    );
+  }, [appointments]);
 
-  useEffect(() => {
-    api
-      .get('/appointments/me', {
-        params: {
-          year: selectedDate.getFullYear(),
-          month: selectedDate.getMonth() + 1,
-          day: selectedDate.getDate(),
-        },
-      })
-      .then((response) => {
-        setAppointments(response.data);
-        console.log(
-          selectedDate.getFullYear(),
-          selectedDate.getMonth() + 1,
-          selectedDate.getDate()
-        );
-        console.log(response.data);
-      });
-  }, [selectedDate]);
+  const afternoonAppointments = useMemo(() => {
+    return appointments.filter(
+      (appointment) => parseISO(appointment.date).getHours() >= 12
+    );
+  }, [appointments]);
 
   return (
     <Container>
@@ -162,55 +182,43 @@ const Dashboard: React.FC = () => {
 
           <Section>
             <strong>Manhã</strong>
+            {morningAppointments.map((appointment) => (
+              <Appointment key={appointment.id}>
+                <span>
+                  <FiClock />
+                  {appointment.hourFormatted}
+                </span>
 
-            <Appointment>
-              <span>
-                <FiClock />
-                08:00
-              </span>
-
-              <div>
-                <img
-                  src="https://i.correiobraziliense.com.br/iIBSi4w-FBH7BrI--h8qXXv4UTM=/675x/smart/imgsapp2.correiobraziliense.com.br/app/noticia_127983242361/2019/04/12/749144/20190412122053420189e.jpg"
-                  alt="Irmão do Jorel"
-                />
-                <strong>Irmão do Jorel</strong>
-              </div>
-            </Appointment>
-
-            <Appointment>
-              <span>
-                <FiClock />
-                08:00
-              </span>
-
-              <div>
-                <img
-                  src="https://i.correiobraziliense.com.br/iIBSi4w-FBH7BrI--h8qXXv4UTM=/675x/smart/imgsapp2.correiobraziliense.com.br/app/noticia_127983242361/2019/04/12/749144/20190412122053420189e.jpg"
-                  alt="Irmão do Jorel"
-                />
-                <strong>Irmão do Jorel</strong>
-              </div>
-            </Appointment>
+                <div>
+                  <img
+                    src={appointment.user.avatar_url}
+                    alt={appointment.user.name}
+                  />
+                  <strong>{appointment.user.name}</strong>
+                </div>
+              </Appointment>
+            ))}
           </Section>
 
           <Section>
             <strong>Tarde</strong>
 
-            <Appointment>
-              <span>
-                <FiClock />
-                08:00
-              </span>
+            {afternoonAppointments.map((appointment) => (
+              <Appointment key={appointment.id}>
+                <span>
+                  <FiClock />
+                  {appointment.hourFormatted}
+                </span>
 
-              <div>
-                <img
-                  src="https://i.correiobraziliense.com.br/iIBSi4w-FBH7BrI--h8qXXv4UTM=/675x/smart/imgsapp2.correiobraziliense.com.br/app/noticia_127983242361/2019/04/12/749144/20190412122053420189e.jpg"
-                  alt="Irmão do Jorel"
-                />
-                <strong>Irmão do Jorel</strong>
-              </div>
-            </Appointment>
+                <div>
+                  <img
+                    src={appointment.user.avatar_url}
+                    alt={appointment.user.name}
+                  />
+                  <strong>{appointment.user.name}</strong>
+                </div>
+              </Appointment>
+            ))}
           </Section>
         </Schedule>
         <Calendar>

@@ -164,12 +164,12 @@ export const Section = styled.section`
 export const Appointment = styled.div`
   display: flex;
   align-items: center;
-
   & + div {
     margin-top: 16px;
   }
 
   span {
+    width: 60px;
     margin-left: auto;
     display: flex;
     align-items: center;
