@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { FiPower, FiClock } from 'react-icons/fi';
 import {
@@ -9,6 +9,8 @@ import {
   Content,
   Schedule,
   NextAppointment,
+  Section,
+  Appointment,
   Calendar,
 } from './styles';
 
@@ -16,6 +18,7 @@ import logoImg from '../../assets/logo.svg';
 import { useAuth } from '../../hooks/auth';
 
 const Dashboard: React.FC = () => {
+  const [selectedDate, setSelectedDate] = useState(new Date());
   const { signOut, user } = useAuth();
 
   return (
@@ -61,6 +64,59 @@ const Dashboard: React.FC = () => {
               </span>
             </div>
           </NextAppointment>
+
+          <Section>
+            <strong>Manhã</strong>
+
+            <Appointment>
+              <span>
+                <FiClock />
+                08:00
+              </span>
+
+              <div>
+                <img
+                  src="https://i.correiobraziliense.com.br/iIBSi4w-FBH7BrI--h8qXXv4UTM=/675x/smart/imgsapp2.correiobraziliense.com.br/app/noticia_127983242361/2019/04/12/749144/20190412122053420189e.jpg"
+                  alt="Irmão do Jorel"
+                />
+                <strong>Irmão do Jorel</strong>
+              </div>
+            </Appointment>
+
+            <Appointment>
+              <span>
+                <FiClock />
+                08:00
+              </span>
+
+              <div>
+                <img
+                  src="https://i.correiobraziliense.com.br/iIBSi4w-FBH7BrI--h8qXXv4UTM=/675x/smart/imgsapp2.correiobraziliense.com.br/app/noticia_127983242361/2019/04/12/749144/20190412122053420189e.jpg"
+                  alt="Irmão do Jorel"
+                />
+                <strong>Irmão do Jorel</strong>
+              </div>
+            </Appointment>
+          </Section>
+
+          <Section>
+            <strong>Tarde</strong>
+
+            <Appointment>
+              <span>
+                <FiClock />
+                08:00
+              </span>
+
+              <div>
+                <img
+                  src="https://i.correiobraziliense.com.br/iIBSi4w-FBH7BrI--h8qXXv4UTM=/675x/smart/imgsapp2.correiobraziliense.com.br/app/noticia_127983242361/2019/04/12/749144/20190412122053420189e.jpg"
+                  alt="Irmão do Jorel"
+                />
+                <strong>Irmão do Jorel</strong>
+              </div>
+            </Appointment>
+          </Section>
         </Schedule>
         <Calendar />
       </Content>
