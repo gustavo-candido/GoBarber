@@ -79,7 +79,10 @@ class AppointmentsRepository implements IAppointmentsRepository {
         ),
       },
       relations: ['user'],
+      order: { date: 'ASC' },
     });
+
+    console.log(appointments.map((appointment) => appointment.date));
 
     return appointments;
   }
