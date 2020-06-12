@@ -66,7 +66,7 @@ export const Content = styled.main`
 
 export const Schedule = styled.div`
   flex: 1;
-  margin-block: 120px;
+  margin-right: 120px;
 
   h1 {
     font-size: 36px;

@@ -1,9 +1,9 @@
-import React, { FC, useCallback, useRef } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { FiLock } from 'react-icons/fi';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
-import { Link, useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { Container, Content, Background, AnimationContainer } from './styles';
 
 import { useToast } from '../../hooks/toast';
