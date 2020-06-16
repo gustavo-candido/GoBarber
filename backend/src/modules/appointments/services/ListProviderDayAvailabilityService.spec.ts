@@ -38,13 +38,13 @@ describe('ListProviderDayAvailability', () => {
 
     expect(avalability).toEqual(
       expect.arrayContaining([
-        { hour: 8, avaliable: false },
-        { hour: 9, avaliable: false },
-        { hour: 10, avaliable: false },
-        { hour: 13, avaliable: true },
-        { hour: 14, avaliable: false },
-        { hour: 15, avaliable: false },
-        { hour: 16, avaliable: true },
+        { hour: 8, available: false },
+        { hour: 9, available: false },
+        { hour: 10, available: false },
+        { hour: 13, available: true },
+        { hour: 14, available: false },
+        { hour: 15, available: false },
+        { hour: 16, available: true },
       ]),
     );
   });

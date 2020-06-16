@@ -82,8 +82,6 @@ class AppointmentsRepository implements IAppointmentsRepository {
       order: { date: 'ASC' },
     });
 
-    console.log(appointments.map((appointment) => appointment.date));
-
     return appointments;
   }
 }
