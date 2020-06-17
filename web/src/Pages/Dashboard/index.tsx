@@ -25,7 +25,7 @@ import api from '../../services/api';
 
 interface MonthAvailabilityItem {
   day: number;
-  avaliable: boolean;
+  available: boolean;
 }
 
 interface Appointment {
@@ -90,13 +90,14 @@ const Dashboard: React.FC = () => {
           };
         });
 
+        console.log(appointmentsFormatted);
         setAppointments(appointmentsFormatted);
       });
   }, [selectedDate]);
 
   const disabledDays = useMemo(() => {
     const dates = monthAvailability
-      .filter((monthDay) => monthDay.avaliable === false)
+      .filter((monthDay) => monthDay.available === false)
       .map((monthday) => {
         const year = currentMonth.getFullYear();
         const month = currentMonth.getMonth();
