@@ -52,7 +52,9 @@ export const UserAvatar = styled.Image`
   margin-left: auto;
 `;
 
-export const Content = styled.ScrollView``;
+export const Content = styled.ScrollView`
+  margin: 10px;
+`;
 
 export const ProvidersListContainer = styled.View`
   height: 112px;

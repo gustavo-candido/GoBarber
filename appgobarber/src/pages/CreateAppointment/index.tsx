@@ -179,6 +179,7 @@ const CreateAppointment: React.FC = () => {
           <ProvidersList
             horizontal
             showsHorizontalScrollIndicator={false}
+            contentContainerStyle={{ paddingRight: 33 }}
             data={providers}
             keyExtractor={(provider) => provider.id}
             renderItem={({ item: provider }) => (
@@ -186,7 +187,7 @@ const CreateAppointment: React.FC = () => {
                 onPress={() => handleSelectedProvider(provider.id)}
                 selected={provider.id === selectedProvider}
               >
-                <ProviderAvatar source={{ uri: user.avatar_url }} />
+                <ProviderAvatar source={{ uri: provider.avatar_url }} />
                 <ProviderName selected={provider.id === selectedProvider}>
                   {provider.name}
                 </ProviderName>
