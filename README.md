@@ -22,8 +22,6 @@ This is the major project from the Bootcamp and intents to practice some technol
 - [x] Backend
 - [x] Web Barber page
 - [x] Customer app
-- [ ] Launch
-
 ---
 ## Preview
 
